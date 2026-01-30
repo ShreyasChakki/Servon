@@ -51,6 +51,7 @@ const register = async (req, res, next) => {
                 location: user.location,
                 businessName: user.businessName,
                 businessCategory: user.businessCategory,
+                avatar: user.avatar,
                 token
             }
         });
@@ -106,6 +107,7 @@ const login = async (req, res, next) => {
                 location: user.location,
                 businessName: user.businessName,
                 businessCategory: user.businessCategory,
+                avatar: user.avatar,
                 token
             }
         });

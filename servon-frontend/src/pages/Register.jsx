@@ -257,42 +257,49 @@ const Register = () => {
 
                             {/* Vendor-specific fields */}
                             {formData.role === 'vendor' && (
-                                <>
-                                    <div className="input-group">
-                                        <label htmlFor="businessName">Business Name *</label>
-                                        <div className="input-with-icon">
-                                            <Briefcase className="input-icon" size={18} />
-                                            <input
-                                                type="text"
-                                                id="businessName"
-                                                name="businessName"
-                                                className="input"
-                                                placeholder="Your business name"
-                                                value={formData.businessName}
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                        </div>
+                                <div className="form-section">
+                                    <div className="form-section-title">
+                                        <Briefcase size={16} />
+                                        <span>Business Information</span>
                                     </div>
 
-                                    <div className="input-group">
-                                        <label htmlFor="businessCategory">Service Category</label>
-                                        <select
-                                            id="businessCategory"
-                                            name="businessCategory"
-                                            className="input"
-                                            value={formData.businessCategory}
-                                            onChange={handleChange}
-                                        >
-                                            <option value="">Select a category</option>
-                                            {SERVICE_CATEGORIES.map(cat => (
-                                                <option key={cat} value={cat}>
-                                                    {cat.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                                                </option>
-                                            ))}
-                                        </select>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+                                        <div className="input-group">
+                                            <label htmlFor="businessName">Business Name *</label>
+                                            <div className="input-with-icon">
+                                                <Briefcase className="input-icon" size={18} />
+                                                <input
+                                                    type="text"
+                                                    id="businessName"
+                                                    name="businessName"
+                                                    className="input"
+                                                    placeholder="Your business name"
+                                                    value={formData.businessName}
+                                                    onChange={handleChange}
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="input-group">
+                                            <label htmlFor="businessCategory">Service Category</label>
+                                            <select
+                                                id="businessCategory"
+                                                name="businessCategory"
+                                                className="input"
+                                                value={formData.businessCategory}
+                                                onChange={handleChange}
+                                            >
+                                                <option value="">Select a category</option>
+                                                {SERVICE_CATEGORIES.map(cat => (
+                                                    <option key={cat} value={cat}>
+                                                        {cat.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
                                     </div>
-                                </>
+                                </div>
                             )}
                         </div>
 
@@ -325,57 +332,6 @@ const Register = () => {
             </div>
 
             <style>{`
-        .auth-container-wide {
-          max-width: 520px;
-        }
-
-        .role-toggle {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: var(--space-sm);
-          margin-bottom: var(--space-lg);
-        }
-
-        .role-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: var(--space-sm);
-          padding: var(--space-md);
-          background-color: var(--color-gray-100);
-          border: 2px solid transparent;
-          border-radius: var(--radius-lg);
-          font-size: 0.875rem;
-          font-weight: 500;
-          color: var(--color-gray-600);
-          cursor: pointer;
-          transition: all var(--transition-base);
-        }
-
-        .role-btn:hover {
-          background-color: var(--color-gray-200);
-        }
-
-        .role-btn.active {
-          background-color: var(--color-primary);
-          color: var(--color-secondary);
-          border-color: var(--color-primary);
-        }
-
-        .form-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: var(--space-lg);
-        }
-
-        .password-match {
-          position: absolute;
-          right: 1rem;
-          top: 50%;
-          transform: translateY(-50%);
-          color: var(--color-success);
-        }
-
         .auth-page {
           min-height: calc(100vh - 70px);
           display: flex;
@@ -383,6 +339,11 @@ const Register = () => {
           justify-content: center;
           padding: var(--space-xl);
           background: linear-gradient(135deg, var(--color-gray-50) 0%, var(--color-secondary) 100%);
+        }
+
+        .auth-container-wide {
+          max-width: 480px;
+          width: 100%;
         }
 
         .auth-card {
@@ -411,6 +372,42 @@ const Register = () => {
           margin-bottom: var(--space-xs);
         }
 
+        .role-toggle {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: var(--space-sm);
+          margin-bottom: var(--space-xl);
+          padding: 4px;
+          background-color: var(--color-gray-100);
+          border-radius: var(--radius-lg);
+        }
+
+        .role-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: var(--space-sm);
+          padding: var(--space-md);
+          background-color: transparent;
+          border: none;
+          border-radius: var(--radius-md);
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: var(--color-gray-600);
+          cursor: pointer;
+          transition: all var(--transition-base);
+        }
+
+        .role-btn:hover {
+          color: var(--color-primary);
+        }
+
+        .role-btn.active {
+          background-color: var(--color-secondary);
+          color: var(--color-primary);
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
         .error-alert {
           display: flex;
           align-items: center;
@@ -430,6 +427,53 @@ const Register = () => {
           gap: var(--space-lg);
         }
 
+        .form-grid {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-md);
+        }
+
+        .form-section {
+          padding: var(--space-lg);
+          background-color: var(--color-gray-50);
+          border-radius: var(--radius-md);
+          border: 1px solid var(--color-gray-200);
+          animation: slideIn 0.3s ease-out;
+        }
+
+        .form-section-title {
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: var(--color-gray-700);
+          margin-bottom: var(--space-md);
+          display: flex;
+          align-items: center;
+          gap: var(--space-sm);
+        }
+
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .input-group {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-xs);
+        }
+
+        .input-group label {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: var(--color-gray-700);
+        }
+
         .input-with-icon {
           position: relative;
         }
@@ -440,6 +484,7 @@ const Register = () => {
           top: 50%;
           transform: translateY(-50%);
           color: var(--color-gray-400);
+          pointer-events: none;
         }
 
         .input-with-icon .input {
@@ -457,6 +502,20 @@ const Register = () => {
           cursor: pointer;
           color: var(--color-gray-400);
           padding: 0;
+          transition: color var(--transition-base);
+        }
+
+        .password-toggle:hover {
+          color: var(--color-primary);
+        }
+
+        .password-match {
+          position: absolute;
+          right: 1rem;
+          top: 50%;
+          transform: translateY(-50%);
+          color: var(--color-success);
+          pointer-events: none;
         }
 
         .auth-footer {
@@ -474,11 +533,21 @@ const Register = () => {
         .auth-link {
           color: var(--color-accent);
           font-weight: 600;
+          transition: color var(--transition-base);
+        }
+
+        .auth-link:hover {
+          color: var(--color-primary);
+          text-decoration: underline;
         }
 
         @media (max-width: 768px) {
-          .form-grid {
-            grid-template-columns: 1fr;
+          .auth-page {
+            padding: var(--space-md);
+          }
+
+          .auth-card {
+            padding: var(--space-xl);
           }
 
           .role-toggle {

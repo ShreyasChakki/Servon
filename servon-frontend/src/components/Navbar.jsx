@@ -108,6 +108,19 @@ const Navbar = () => {
           {/* User Badge (Desktop) */}
           {isAuthenticated && (
             <div className="user-badge hide-mobile">
+              <div className="user-avatar">
+                {user?.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt={user.name}
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextElementSibling.style.display = 'flex';
+                    }}
+                  />
+                ) : null}
+                <User size={16} className={user?.avatar ? 'avatar-fallback' : ''} />
+              </div>
               <span className="user-name">{user?.name}</span>
               <span className={`role-badge ${user?.role}`}>{user?.role}</span>
             </div>
@@ -286,6 +299,30 @@ const Navbar = () => {
           background-color: var(--color-error);
           color: white;
         }
+
+        .user-avatar {
+          position: relative;
+          width: 32px;
+          height: 32px;
+          border-radius: var(--radius-full);
+          overflow: hidden;
+          background-color: var(--color-gray-200);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .user-avatar img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .user-avatar .avatar-fallback {
+          display: none;
+        }
+
 
         .mobile-menu-toggle {
           display: none;

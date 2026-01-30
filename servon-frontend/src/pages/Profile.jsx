@@ -66,15 +66,21 @@ const Profile = () => {
                     <div className="profile-header">
                         <div className="avatar-container">
                             <div className="avatar">
-                                {(user?.avatar || formData.avatar) ? (
+                                {(formData.avatar || user?.avatar) ? (
                                     <img
-                                        src={user?.avatar || formData.avatar}
+                                        src={formData.avatar || user?.avatar}
                                         alt={user?.name}
-                                        onError={(e) => e.target.style.display = 'none'}
+                                        onError={(e) => {
+                                            e.target.style.display = 'none';
+                                            e.target.parentElement.querySelector('.avatar-fallback')?.setAttribute('style', 'display: flex');
+                                        }}
+                                        onLoad={(e) => {
+                                            e.target.style.display = 'block';
+                                            e.target.parentElement.querySelector('.avatar-fallback')?.setAttribute('style', 'display: none');
+                                        }}
                                     />
-                                ) : (
-                                    <User size={40} />
-                                )}
+                                ) : null}
+                                <User size={40} className="avatar-fallback" style={{ display: (formData.avatar || user?.avatar) ? 'none' : 'flex' }} />
                             </div>
                             <div className="avatar-badge">
                                 <Camera size={12} />
@@ -122,7 +128,10 @@ const Profile = () => {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <span className="helper-text">Paste a URL to your profile photo</span>
+                            <span className="helper-text">
+                                Use a direct image URL (ending in .jpg, .png, etc.).
+                                Try: <code style={{ fontSize: '0.7rem', padding: '2px 4px', background: 'var(--color-gray-100)', borderRadius: '3px' }}>https://i.pravatar.cc/150</code>
+                            </span>
                         </div>
 
                         <div className="input-group">
@@ -269,6 +278,16 @@ const Profile = () => {
           height: 100%;
           object-fit: cover;
         }
+
+        .avatar .avatar-fallback {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--color-gray-400);
+        }
+
 
         .avatar-badge {
           position: absolute;
